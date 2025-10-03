@@ -126,7 +126,8 @@
       <div
         v-for="(movie, index) in hotMovies"
         :key="index"
-        class="group relative hover-slide-top card transition-all duration-300 cursor-pointer overflow-hidden"
+        @click="sendTitle(movie.title)"
+        class="group relative card-hover card transition-all duration-300 cursor-pointer overflow-hidden"
       >
         <!-- 排名角标 -->
         <div class="absolute top-3 right-3 z-20 drop-shadow-2xl">
@@ -159,25 +160,24 @@
         <!-- 海报图片 -->
         <figure class="relative aspect-[2/3] overflow-hidden">
           <img
-            :src="movie.cover"
+            :src="movie.cover_base64 || movie.cover"
             :alt="movie.title"
             referrerpolicy="no-referrer"
             class="group-hover:scale-110 h-full transition-transform duration-300"
           />
 
-          <!-- 悬浮遮罩 -->
-          <div class="image-mask flex items-end p-4">
-            <button class="btn btn-primary btn-sm w-full" @click="sendTitle(movie.title)">
+          <!-- 悬浮操作按钮 -->
+          <div class="image-mask flex items-center justify-center">
+            <div class="bg-background/90 backdrop-blur-sm rounded-full p-3 shadow-lg">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                class="size-4"
+                class="size-12 text-primary"
                 viewBox="0 0 24 24"
                 fill="currentColor"
               >
                 <path d="M8 5v14l11-7z" />
               </svg>
-              立即播放
-            </button>
+            </div>
           </div>
         </figure>
 
@@ -314,31 +314,29 @@ const sendTitle = (title: string) => {
 }
 
 // 监听hot参数 页码,类别,tag
-watch([page, pageSize, selectedType, selectedTag], async () => {
-  try {
-    loading.value = true
-    const res = await videoApi.getHotVideos(
-      page.value,
-      pageSize.value,
-      selectedType.value,
-      selectedTag.value,
-    )
-    hotMovies.value = res.data.data.list
-  } catch (err) {
-    console.error('获取热门影片失败:', err)
-    hotMovies.value = []
-  } finally {
-    loading.value = false
-  }
-})
+watch(
+  [page, pageSize, selectedType, selectedTag],
+  async () => {
+    try {
+      loading.value = true
 
-onMounted(async () => {
-  try {
-    const res = await videoApi.getHotVideos()
-    hotMovies.value = res.data.data.list
-  } catch (err) {
-    console.error('获取热门影片失败:', err)
-    hotMovies.value = []
-  }
-})
+      // 先请求主要信息
+      const res = await videoApi.getHotVideos(
+        page.value,
+        pageSize.value,
+        selectedType.value,
+        selectedTag.value,
+      )
+      hotMovies.value = res.data.data.list
+
+      console.log(hotMovies.value)
+    } catch (err) {
+      console.error('获取热门影片失败:', err)
+      hotMovies.value = []
+    } finally {
+      loading.value = false
+    }
+  },
+  { immediate: true, deep: true },
+)
 </script>

@@ -15,10 +15,6 @@ func initLog() zerolog.Logger {
 		NoColor:    false,
 	}
 	consoleWriter.FormatLevel = func(i interface{}) string {
-		return strings.ToUpper(fmt.Sprintf("| %-6s|", i))
-	}
-	// 保留默认的颜色格式化
-	consoleWriter.FormatLevel = func(i interface{}) string {
 		var l string
 		if ll, ok := i.(string); ok {
 			switch ll {

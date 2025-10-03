@@ -1,50 +1,80 @@
 :root {
-  --background: oklch(0.973 0.0133 286.1503);
-  --foreground: oklch(0.3015 0.0572 282.4176);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.3015 0.0572 282.4176);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.3015 0.0572 282.4176);
-  --primary: oklch(0.5417 0.179 288.0332);
-  --primary-foreground: oklch(1 0 0);
-  --secondary: oklch(0.9174 0.0435 292.6901);
-  --secondary-foreground: oklch(0.4143 0.1039 288.1742);
-  --muted: oklch(0.958 0.0133 286.1454);
-  --muted-foreground: oklch(0.5426 0.0465 284.7435);
-  --accent: oklch(0.9221 0.0373 262.141);
-  --accent-foreground: oklch(0.3015 0.0572 282.4176);
-  --destructive: oklch(0.6861 0.2061 14.9941);
-  --destructive-foreground: oklch(1 0 0);
-  --border: oklch(0.9115 0.0216 285.9625);
-  --input: oklch(0.9115 0.0216 285.9625);
-  --ring: oklch(0.5417 0.179 288.0332);
-  --chart-1: oklch(0.5417 0.179 288.0332);
-  --chart-2: oklch(0.7042 0.1602 288.988);
-  --chart-3: oklch(0.5679 0.2113 276.7065);
-  --chart-4: oklch(0.6356 0.1922 281.8054);
-  --chart-5: oklch(0.4509 0.1758 279.3838);
-  --sidebar: oklch(0.958 0.0133 286.1454);
-  --sidebar-foreground: oklch(0.3015 0.0572 282.4176);
-  --sidebar-primary: oklch(0.5417 0.179 288.0332);
-  --sidebar-primary-foreground: oklch(1 0 0);
-  --sidebar-accent: oklch(0.9221 0.0373 262.141);
-  --sidebar-accent-foreground: oklch(0.3015 0.0572 282.4176);
-  --sidebar-border: oklch(0.9115 0.0216 285.9625);
-  --sidebar-ring: oklch(0.5417 0.179 288.0332);
-  --font-sans: Inter, sans-serif;
-  --font-serif: Georgia, serif;
-  --font-mono: JetBrains Mono, monospace;
+  /* 背景色 - 更柔和的淡紫灰 */
+  --background: oklch(98.5% 0.008 280);
+  --foreground: oklch(0.25 0.02 280);
+
+  /* 卡片 - 纯白带微弱紫调 */
+  --card: oklch(99.5% 0.002 280);
+  --card-foreground: oklch(0.25 0.02 280);
+
+  /* 弹窗 */
+  --popover: oklch(99.8% 0.001 280);
+  --popover-foreground: oklch(0.25 0.02 280);
+
+  /* 主色 - 更鲜艳的紫色 */
+  --primary: oklch(0.55 0.22 285);
+  --primary-foreground: oklch(0.99 0 0);
+
+  /* 次要色 - 淡紫色 */
+  --secondary: oklch(0.94 0.05 285);
+  --secondary-foreground: oklch(0.35 0.12 285);
+
+  /* 柔和色 - 中性紫灰 */
+  --muted: oklch(0.96 0.015 285);
+  --muted-foreground: oklch(0.5 0.04 285);
+
+  /* 强调色 - 青紫色 */
+  --accent: oklch(0.93 0.055 270);
+  --accent-foreground: oklch(0.25 0.02 280);
+
+  /* 危险色 - 温暖的红色 */
+  --destructive: oklch(63.408% 0.23096 22.528);
+  --destructive-foreground: oklch(0.99 0 0);
+
+  /* 边框 - 更柔和 */
+  --border: oklch(0.92 0.018 285);
+  --input: oklch(0.92 0.018 285);
+  --ring: oklch(0.55 0.22 285);
+
+  /* 图表色 - 渐变紫色系 */
+  --chart-1: oklch(0.55 0.22 285);
+  --chart-2: oklch(0.65 0.18 275);
+  --chart-3: oklch(0.6 0.25 290);
+  --chart-4: oklch(0.7 0.15 265);
+  --chart-5: oklch(0.48 0.2 295);
+
+  /* 侧边栏 - 微紫灰 */
+  --sidebar: oklch(0.97 0.012 285);
+  --sidebar-foreground: oklch(0.25 0.02 280);
+  --sidebar-primary: oklch(0.55 0.22 285);
+  --sidebar-primary-foreground: oklch(0.99 0 0);
+  --sidebar-accent: oklch(0.93 0.055 270);
+  --sidebar-accent-foreground: oklch(0.25 0.02 280);
+  --sidebar-border: oklch(0.92 0.018 285);
+  --sidebar-ring: oklch(0.55 0.22 285);
+
+  /* 字体 */
+  --font-sans: Inter, system-ui, -apple-system, sans-serif;
+  --font-serif: Georgia, Cambria, serif;
+  --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
+
+  /* 圆角 - 更现代 */
   --radius: 0.5rem;
-  --shadow-2xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);
-  --shadow-xs: 0px 4px 10px 0px hsl(240 30% 25% / 0.06);
-  --shadow-sm: 0px 4px 10px 0px hsl(240 30% 25% / 0.12), 0px 1px 2px -1px hsl(240 30% 25% / 0.12);
-  --shadow: 0px 4px 10px 0px hsl(240 30% 25% / 0.12), 0px 1px 2px -1px hsl(240 30% 25% / 0.12);
-  --shadow-md: 0px 4px 10px 0px hsl(240 30% 25% / 0.12), 0px 2px 4px -1px hsl(240 30% 25% / 0.12);
-  --shadow-lg: 0px 4px 10px 0px hsl(240 30% 25% / 0.12), 0px 4px 6px -1px hsl(240 30% 25% / 0.12);
-  --shadow-xl: 0px 4px 10px 0px hsl(240 30% 25% / 0.12), 0px 8px 10px -1px hsl(240 30% 25% / 0.12);
-  --shadow-2xl: 0px 4px 10px 0px hsl(240 30% 25% / 0.3);
-  --tracking-normal: 0em;
-  --spacing: 0.25rem;
+
+  /* 阴影 - 更柔和自然 */
+  --shadow-2xs: 0px 1px 2px 0px oklch(0.3 0.02 280 / 0.05);
+  --shadow-xs: 0px 2px 4px 0px oklch(0.3 0.02 280 / 0.06);
+  --shadow-sm:
+    0px 2px 6px -1px oklch(0.3 0.02 280 / 0.08), 0px 4px 8px -2px oklch(0.3 0.02 280 / 0.08);
+  --shadow:
+    0px 4px 12px -2px oklch(0.3 0.02 280 / 0.1), 0px 2px 6px -1px oklch(0.3 0.02 280 / 0.08);
+  --shadow-md:
+    0px 6px 16px -4px oklch(0.3 0.02 280 / 0.12), 0px 4px 8px -2px oklch(0.3 0.02 280 / 0.08);
+  --shadow-lg:
+    0px 10px 24px -6px oklch(0.3 0.02 280 / 0.14), 0px 6px 12px -3px oklch(0.3 0.02 280 / 0.1);
+  --shadow-xl:
+    0px 16px 32px -8px oklch(0.3 0.02 280 / 0.16), 0px 8px 16px -4px oklch(0.3 0.02 280 / 0.12);
+  --shadow-2xl: 0px 24px 48px -12px oklch(0.3 0.02 280 / 0.24);
 }
 
 .dark {

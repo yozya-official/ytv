@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"sync"
 	"time"
+	"tv/conf"
 	"tv/models"
 
 	"github.com/rs/zerolog/log"
@@ -19,7 +20,7 @@ func GetCacher() *SearchCache {
 		instance = &SearchCache{
 			items: make(map[string]cacheItem),
 		}
-		log.Info().Msg("SearchCache singleton initialized")
+		log.Info().Msg("搜索缓存已就绪")
 	})
 	return instance
 }
@@ -40,9 +41,9 @@ const (
 
 // 缓存过期时间配置
 var cacheTTL = map[CacheType]time.Duration{
-	CacheTypeSearch: 1 * time.Hour,
-	CacheTypeID:     2 * time.Hour,
-	CacheTypeHot:    30 * time.Minute,
+	CacheTypeSearch: conf.Cfg.Cache.Search,
+	CacheTypeID:     conf.Cfg.Cache.ID,
+	CacheTypeHot:    conf.Cfg.Cache.Hot,
 }
 
 type SearchCache struct {

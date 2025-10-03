@@ -4,7 +4,7 @@
     <div class="text-center py-6">
       <!-- 图标/徽章 -->
       <div
-        class="inline-flex items-center justify-center size-16 rounded-2xl bg-gradient-to-br from-primary to-chart-2 text-primary-foreground mb-6 shadow-xl hover-scale"
+        class="inline-flex items-center justify-center size-16 rounded-2xl bg-gradient-to-br from-primary to-chart-2 text-primary-foreground mb-6 shadow-xl badge-hover"
       >
         <slot name="icon">
           <!-- 默认图标 -->

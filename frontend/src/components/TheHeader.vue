@@ -32,10 +32,10 @@
       <div class="flex items-center">
         <!-- 主题切换器+设置 -->
         <div class="relative flex gap-4">
-          <ThemeToggle class="hover-scale"></ThemeToggle>
+          <ThemeToggle class="btn-scale"></ThemeToggle>
 
           <button
-            class="cursor-pointer btn btn-ghost btn-icon hover-scale"
+            class="cursor-pointer btn btn-ghost btn-icon btn-scale"
             @click="showHistory = true"
           >
             <svg class="size-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">

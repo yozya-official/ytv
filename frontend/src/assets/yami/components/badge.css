@@ -1,0 +1,45 @@
+/* Badge 徽章组件 */
+@utility badge {
+  @apply inline-flex items-center rounded-full px-2.5 py-1;
+  @apply text-xs font-semibold transition-colors;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+}
+
+@utility badge-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/80;
+}
+
+@utility badge-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
+}
+
+@utility badge-destructive {
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/80;
+}
+
+@utility badge-outline {
+  @apply text-foreground border border-input hover:bg-accent hover:text-accent-foreground;
+}
+
+@utility badge-muted {
+  @apply bg-muted text-muted-foreground hover:bg-muted/80;
+}
+
+@utility badge-accent {
+  @apply bg-accent text-accent-foreground hover:bg-accent/80;
+}
+
+@utility badge-sm {
+  @apply px-2 py-1;
+}
+
+@utility badge-lg {
+  @apply px-3 py-1.5;
+}
+
+@utility badge-xl {
+  @apply px-4 py-2;
+}
+@utility badge-hover {
+  @apply hover:scale-105 transition-transform duration-300;
+}

@@ -1,0 +1,89 @@
+/* Card 卡片组件 */
+@utility card {
+  @apply rounded-xl border bg-card text-card-foreground shadow-sm;
+  &:hover {
+    @apply shadow-xl;
+  }
+}
+
+/* 卡片装饰, 卡片上面多个杠 */
+@utility card-deco {
+  @apply relative;
+
+  &::before {
+    content: '';
+    @apply absolute top-0 left-0 right-0 h-1 bg-gradient-to-r;
+  }
+}
+
+@utility card-deco-primary {
+  &::before {
+    @apply from-primary/70 via-primary to-primary/70;
+  }
+}
+
+@utility card-header {
+  @apply flex flex-col space-y-1.5 p-6;
+}
+
+@utility card-title {
+  @apply text-2xl font-semibold leading-none tracking-tight;
+}
+
+@utility card-description {
+  @apply text-sm text-muted-foreground;
+}
+
+@utility card-content {
+  @apply p-6 pt-0;
+}
+
+@utility card-footer {
+  @apply flex items-center p-6 pt-0;
+}
+
+@utility card-hover {
+  @apply hover:-translate-y-2 transition-transform duration-300;
+}
+
+/* Dialog 对话框 */
+@utility dialog {
+  @apply invisible fixed inset-0 grid h-full w-full items-center justify-items-center bg-transparent p-0;
+  overflow: hidden;
+  overscroll-behavior: contain;
+  z-index: 999;
+  transition:
+    visibility 0.3s allow-discrete,
+    background-color 0.3s ease-out;
+
+  &::backdrop {
+    @apply hidden;
+  }
+
+  &[open] {
+    @apply visible;
+    background-color: oklch(0% 0 0 / 0.4);
+    .dialog-body {
+      scale: 1;
+      opacity: 1;
+    }
+  }
+
+  @starting-style {
+    &[open] {
+      @apply invisible; /* dialog 打开瞬间从 invisible 开始 */
+    }
+  }
+}
+
+@utility dialog-body {
+  @apply fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  @apply flex flex-col p-6 w-96 max-w-11/12  max-h-11/12;
+  @apply bg-card rounded-lg card;
+  scale: 0.95;
+  opacity: 0;
+  overflow-y: auto;
+  transition:
+    scale 0.3s ease-out,
+    opacity 0.2s ease-out 0.05s;
+}

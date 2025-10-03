@@ -8,7 +8,7 @@ export {}
 /* prettier-ignore */
 declare module 'vue' {
   export interface GlobalComponents {
-    DataPagination: typeof import('./components/DataPagination.vue')['default']
+    DataPagination: typeof import('./components/ui/DataPagination.vue')['default']
     EpisodeList: typeof import('./components/EpisodeList.vue')['default']
     HotVideos: typeof import('./components/HotVideos.vue')['default']
     PageHeader: typeof import('./components/PageHeader.vue')['default']
@@ -17,7 +17,7 @@ declare module 'vue' {
     RouterView: typeof import('vue-router')['RouterView']
     SearchCard: typeof import('./components/SearchCard.vue')['default']
     SearchContainer: typeof import('./components/SearchContainer.vue')['default']
-    SearchResult: typeof import('./components/SearchResult.vue')['default']
+    SearchInput: typeof import('./components/ui/SearchInput.vue')['default']
     SwitchResult: typeof import('./components/SwitchResult.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']
     VideoPlayer: typeof import('./components/VideoPlayer.vue')['default']

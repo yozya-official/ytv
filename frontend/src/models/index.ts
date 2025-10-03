@@ -137,6 +137,8 @@ export interface HotMovie {
   id: string
   cover_y: number
   is_new: boolean
+
+  cover_base64: string // 需要请求 hot-covers
 }
 
 /* 观影记录 */

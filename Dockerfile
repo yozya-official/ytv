@@ -34,8 +34,9 @@ RUN rm -rf src node_modules public package.json pnpm-lock.yaml vite.config.ts ts
 FROM golang:1.25.1-alpine AS backend-builder
 WORKDIR /app
 
-# 设置数据库路径
+# 设置环境变量
 ENV DATABASE_URL=/app/index.db
+ENV APP_MODE=release
 
 # 安装依赖工具
 RUN apk add --no-cache git build-base

@@ -61,53 +61,12 @@
           </div>
 
           <div class="pr-2">
-            <!-- 搜索框 -->
-            <div class="search-input mb-3 search-input-primary max-w-2xl w-full shadow-md relative">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-5 text-muted-foreground flex-shrink-0"
-                viewBox="0 0 24 24"
-              >
-                <g
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                >
-                  <circle cx="11" cy="11" r="8" />
-                  <path d="m21 21l-4.34-4.34" />
-                </g>
-              </svg>
-
-              <input
-                type="text"
-                v-model.lazy="search"
-                @focus="isOpen = true"
-                class="flex-1 bg-transparent border-none outline-none text-sm placeholder:text-muted-foreground"
-                placeholder="搜索名称, 剧集..."
-              />
-              <svg
-                @click="search = ''"
-                xmlns="http://www.w3.org/2000/svg"
-                class="size-5"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M18 6L6 18M6 6l12 12"
-                />
-              </svg>
-              <button class="btn btn-primary btn-xs">
-                <span>搜索</span>
-              </button>
-            </div>
+            <search-input
+              @search="handleSearch"
+              @clear="search = ''"
+              class="w-full search-input search-input-primary bg-transparent mb-4"
+              :placeholder="'搜索名称,剧集...'"
+            ></search-input>
 
             <!-- 历史记录列表 -->
             <div class="space-y-3 max-h-96 overflow-y-auto">
@@ -138,11 +97,10 @@
                 :key="`${item.vod_id}-${item.episode_index}-${item.sourceKey}`"
                 class="card group hover:shadow-lg transition-all"
               >
-                <div class="p-4">
+                <div class="p-4 cursor-pointer" @click="goToPlayer(item)">
                   <div class="flex items-start gap-4">
                     <!-- 播放图标 -->
                     <div
-                      @click="goToPlayer(item)"
                       class="flex-shrink-0 w-12 h-12 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary/20 transition-colors"
                     >
                       <svg
@@ -183,7 +141,9 @@
 
                         <!-- 删除按钮 -->
                         <button
-                          @click="deleteHistory(item.vod_id, item.episode_index, item.sourceKey)"
+                          @click.prevent="
+                            deleteHistory(item.vod_id, item.episode_index, item.sourceKey)
+                          "
                           class="btn btn-ghost btn-icon btn-xs text-muted-foreground hover:text-destructive opacity-0 group-hover:opacity-100 transition-opacity"
                           title="删除记录"
                         >
@@ -251,6 +211,10 @@ const { playHistory } = storeToRefs(useHistoryStore())
 const search = ref('')
 
 const isOpen = defineModel<boolean>('showHistory')
+
+const handleSearch = (keyword: string) => {
+  search.value = keyword
+}
 
 const goToPlayer = (item: PlayHistory) => {
   router.push({

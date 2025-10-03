@@ -19,21 +19,8 @@ export const useBaseStore = defineStore('base', () => {
     }
   }
 
-  /** 移除某条搜索记录 */
-  function removeSearch(keyword: string) {
-    const index = recentSearchList.value.indexOf(keyword)
-    if (index !== -1) recentSearchList.value.splice(index, 1)
-  }
-
-  /** 清空全部搜索记录 */
-  function clearSearch() {
-    recentSearchList.value = []
-  }
-
   return {
     recentSearchList,
     addSearch,
-    removeSearch,
-    clearSearch,
   }
 })

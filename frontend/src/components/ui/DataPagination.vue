@@ -47,7 +47,7 @@
       <button
         @click="currentPage = Math.min(totalPages, currentPage + 1)"
         :disabled="currentPage === totalPages"
-        class="px-3 py-2 rounded-lg text-muted-foreground hover:text-foreground hover:bg-accent disabled:opacity-30 disabled:cursor-not-allowed transition-all duration-200"
+        class="rounded-lg btn btn-ghost"
         :class="{ 'hover:bg-transparent': currentPage === totalPages }"
         aria-label="下一页"
       >

@@ -9,9 +9,7 @@
       />
 
       <!-- 悬浮操作按钮 -->
-      <div
-        class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-      >
+      <div class="image-mask flex items-center justify-center">
         <div class="bg-background/90 backdrop-blur-sm rounded-full p-3 shadow-lg">
           <svg
             xmlns="http://www.w3.org/2000/svg"

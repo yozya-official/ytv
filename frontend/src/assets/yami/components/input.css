@@ -1,0 +1,117 @@
+/* 输入组件 Input, Textarea, Select 基础样式 */
+@utility textarea {
+  @apply border bg-background rounded-md placeholder-muted-foreground;
+  @apply px-3 py-2 text-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply transition-colors;
+}
+
+@utility select {
+  @apply border bg-background rounded-md placeholder-muted-foreground;
+  @apply px-3 py-2 text-sm;
+  @apply focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply transition-colors;
+}
+
+@utility input {
+  @apply border bg-background rounded-md placeholder-muted-foreground;
+  @apply px-3 py-2 text-sm;
+  @apply focus:outline-none transition-colors;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background;
+}
+
+@utility input-primary {
+  @apply border-primary/30 focus-within:border-primary;
+}
+
+@utility select-primary {
+  @apply border-primary/30 focus:border-primary;
+}
+
+@utility textarea-primary {
+  @apply border-primary/30 focus:border-primary;
+}
+
+@utility input-secondary {
+  @apply border-secondary/30 focus:border-secondary;
+}
+
+@utility select-secondary {
+  @apply border-secondary/30 focus:border-secondary;
+}
+
+@utility textarea-secondary {
+  @apply border-secondary/30 focus:border-secondary;
+}
+
+@utility input-muted {
+  @apply border-muted/50 focus:border-muted;
+}
+
+@utility select-muted {
+  @apply border-muted/50 focus:border-muted;
+}
+
+@utility textarea-muted {
+  @apply border-muted/50 focus:border-muted;
+}
+
+@utility input-accent {
+  @apply border-accent/30 focus:border-accent;
+}
+
+@utility select-accent {
+  @apply border-accent/30 focus:border-accent;
+}
+
+@utility textarea-accent {
+  @apply border-accent/30 focus:border-accent;
+}
+
+@utility input-destructive {
+  @apply border-destructive/30 focus:border-destructive;
+}
+
+@utility select-destructive {
+  @apply border-destructive/30 focus:border-destructive;
+}
+
+@utility textarea-destructive {
+  @apply border-destructive/30 focus:border-destructive;
+}
+
+/* Search Input 搜索输入框 */
+@utility search-input {
+  @apply flex items-center gap-2 h-12 px-2;
+  @apply border border-input rounded-lg bg-background;
+  @apply focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-2 focus-within:ring-offset-background;
+  @apply transition-all;
+}
+
+@utility search-input-primary {
+  @apply border-primary/30 focus-within:border-primary;
+}
+
+/* Checkbox & Radio */
+@utility checkbox {
+  @apply h-4 w-4 shrink-0 rounded-sm border border-primary;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground;
+}
+
+@utility radio {
+  @apply h-4 w-4 shrink-0 rounded-full border border-primary;
+  @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:cursor-not-allowed disabled:opacity-50;
+  @apply data-[state=checked]:bg-primary data-[state=checked]:text-primary-foreground;
+}
+
+/* Label 标签 */
+@utility label {
+  @apply text-sm font-medium leading-none;
+  @apply peer-disabled:cursor-not-allowed peer-disabled:opacity-70;
+}

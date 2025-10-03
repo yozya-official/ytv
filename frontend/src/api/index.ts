@@ -81,6 +81,9 @@ export const videoApi = {
     })
   },
 
+  /**
+   * 根据id搜索vod
+   */
   searchById: (sourceKey: string, vodId: number) => {
     return api.get<SearchDetailResult>('/vod', {
       params: {

@@ -1,0 +1,92 @@
+/* Button 按钮组件 */
+@utility btn {
+  border-radius: var(--radius);
+
+  @apply px-4 h-10;
+  @apply text-sm;
+  @apply inline-flex items-center justify-center gap-1;
+  @apply transition-colors;
+  @apply focus-visible:outline-none focus-visible:isolate focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2;
+  @apply disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-40;
+  @apply cursor-pointer;
+}
+
+@utility btn-primary {
+  @apply bg-primary text-primary-foreground hover:bg-primary/90 shadow-sm;
+}
+
+@utility btn-destructive {
+  @apply bg-destructive text-destructive-foreground hover:bg-destructive/90 shadow-sm;
+}
+
+@utility btn-outline {
+  @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+}
+
+@utility btn-secondary {
+  @apply bg-secondary text-secondary-foreground hover:bg-secondary/80 shadow-sm;
+}
+
+@utility btn-muted {
+  @apply bg-muted text-muted-foreground hover:bg-muted/80 shadow-sm;
+}
+
+@utility btn-accent {
+  @apply bg-accent text-accent-foreground hover:bg-accent/90 shadow-sm;
+}
+
+@utility btn-ghost {
+  @apply hover:bg-accent hover:text-accent-foreground;
+}
+
+@utility btn-link {
+  @apply text-primary underline-offset-4 hover:underline px-0;
+}
+
+@utility btn-xs {
+  @apply text-xs px-2 h-6;
+}
+
+@utility btn-sm {
+  @apply text-sm px-3 h-8;
+}
+
+@utility btn-lg {
+  @apply text-base px-5 h-12;
+}
+
+@utility btn-xl {
+  @apply text-base px-6 h-14;
+}
+
+@utility btn-wide {
+  @apply w-full max-w-64;
+}
+
+@utility btn-icon {
+  @apply h-10 w-10 p-0;
+}
+
+@utility btn-square {
+  @apply px-0;
+}
+@utility btn-circle {
+  @apply rounded-full px-0;
+}
+
+@utility btn-block {
+  @apply w-full;
+}
+
+@utility btn-close {
+  @apply absolute top-4 right-4 cursor-pointer text-muted-foreground hover:text-foreground transition-colors z-30;
+}
+
+@utility btn-search-spinner {
+  @apply inline-block animate-spin rounded-full border-2 border-solid border-current border-r-transparent;
+  @apply motion-reduce:animate-[spin_1.5s_linear_infinite];
+}
+
+@utility btn-hover {
+  @apply hover:scale-105 transition-transform duration-300;
+}

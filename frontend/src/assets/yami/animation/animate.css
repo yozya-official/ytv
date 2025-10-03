@@ -1,0 +1,15 @@
+/* 
+Spinner
+*/
+
+/* Spinner 加载动画 */
+
+/* 美化 标题左边加个竖杠 */
+@utility title-deco {
+  @apply relative pl-3;
+
+  &::before {
+    content: '';
+    @apply absolute left-0 top-1/2 -translate-y-1/2 block w-1 h-8 bg-gradient-to-b from-primary to-primary/50 rounded-full;
+  }
+}

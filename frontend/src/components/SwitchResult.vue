@@ -35,9 +35,7 @@
             />
 
             <div class="flex items-center gap-3">
-              <span
-                class="hidden sm:block text-sm text-muted-foreground font-medium px-3 py-1 bg-muted rounded-full"
-              >
+              <span class="hidden sm:block badge badge-secondary badge-lg">
                 {{ filteredVods.length }} 个结果
               </span>
               <button
@@ -82,6 +80,20 @@
                 loading="lazy"
               />
 
+              <!-- 悬浮操作按钮 -->
+              <div class="image-mask flex items-center justify-center">
+                <div class="bg-background/90 backdrop-blur-sm rounded-full p-3 shadow-lg">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    class="size-8 text-primary"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                  >
+                    <path d="M8 5v14l11-7z" />
+                  </svg>
+                </div>
+              </div>
+
               <!-- 当前播放浮层 -->
               <div
                 v-if="isCurrentVod(vod)"
@@ -120,22 +132,6 @@
                 >
                   {{ vod.vod_year }}
                 </span>
-              </div>
-
-              <!-- 悬浮操作按钮 -->
-              <div
-                class="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-              >
-                <div class="bg-background/90 backdrop-blur-sm rounded-full p-3 shadow-lg">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="size-6 text-primary"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
               </div>
             </div>
 

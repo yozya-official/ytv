@@ -1,0 +1,19 @@
+/* Separator 分隔线 */
+@utility separator {
+  @apply shrink-0 bg-border;
+}
+
+@utility separator-* {
+  &-horizontal {
+    @apply h-[1px] w-full;
+  }
+
+  &-vertical {
+    @apply h-full w-[1px];
+  }
+}
+
+/* Skeleton 骨架屏 */
+@utility skeleton {
+  @apply animate-pulse rounded-md bg-muted;
+}

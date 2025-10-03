@@ -3,7 +3,8 @@ package main
 import (
 	"io"
 	"net/http"
-	"time"
+	"os"
+	"strings"
 	"tv/conf"
 	"tv/middleware"
 	"tv/service"
@@ -14,45 +15,40 @@ import (
 
 func main() {
 
-	// 加载api
-	err := conf.LoadVideoSources("data/api.yaml")
-	if err != nil {
+	// 配置日志
+	logger := initLog()
+	log.Logger = logger
+
+	// 初始化配置
+	if err := conf.InitConfig("data/config.yaml"); err != nil {
+		log.Fatal().Msg("加载配置失败")
 		panic(err)
 	}
 
-	// 配置 zerolog
-	logger := initLog()
+	log.Debug().Msg("加载配置")
 
-	log.Logger = logger
-
+	// 初始化Gin
 	gin.DefaultWriter = io.Discard
 	gin.DefaultErrorWriter = io.Discard
-
-	// 设置 Gin 模式为 release（去除 debug 信息）
-	// gin.SetMode(gin.ReleaseMode)
-
 	r := gin.New()
-
 	r.Use(middleware.GinLogger(logger), middleware.GinRecovery(logger))
 
-	// CORS 中间件
-	r.Use(func(c *gin.Context) {
-		c.Header("Access-Control-Allow-Origin", "*")
-		c.Header("Access-Control-Allow-Methods", "GET, POST, PUT, PATCH, DELETE, OPTIONS")
-		c.Header("Access-Control-Allow-Headers", "Origin, Content-Type, Authorization")
-		c.Header("Access-Control-Expose-Headers", "Content-Length")
+	mode := strings.ToLower(os.Getenv("APP_MODE"))
 
-		if c.Request.Method == "OPTIONS" {
-			c.AbortWithStatus(204)
-			return
-		}
-
-		c.Next()
-	})
+	// 基于部署方式动态修改参数
+	addr := ":" + conf.Cfg.App.Port
+	if mode == "release" {
+		gin.SetMode(gin.ReleaseMode)
+	} else {
+		// 全局使用
+		addr = "0.0.0.0" + addr
+		// CORS 中间件
+		r.Use(middleware.Cors())
+	}
 
 	// API 路由组
-	api := r.Group("/api/v1")
-	api.Use(middleware.CacheMiddleware(1 * time.Hour))
+	api := r.Group("/api/" + conf.Cfg.App.APIVersion)
+	api.Use((middleware.CacheMiddleware(conf.Cfg.Cache.Header)))
 	{
 		api.GET("/search", service.SearchVideoAPI)
 		api.GET("/hot", service.HotMovies)
@@ -68,15 +64,15 @@ func main() {
 	r.NoRoute(func(c *gin.Context) {
 		path := c.Request.URL.Path
 		if len(path) >= 4 && path[:4] == "/api" {
-			c.JSON(http.StatusNotFound, gin.H{"error": "API route not found"})
+			c.JSON(http.StatusNotFound, gin.H{"error": "API 路由未找到"})
 			return
 		}
 		c.File("./frontend/dist/index.html")
 	})
 
 	// 启动服务器
-	logger.Info().Str("address", "0.0.0.0:9000").Msg("Starting server")
-	if err := r.Run("0.0.0.0:9000"); err != nil {
-		logger.Fatal().Err(err).Msg("Failed to start server")
+	logger.Info().Str("地址", addr).Msg("服务已启动")
+	if err := r.Run(addr); err != nil {
+		logger.Fatal().Err(err).Msg("服务加载失败")
 	}
 }

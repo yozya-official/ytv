@@ -1,6 +1,6 @@
 <template>
   <!-- 加载中状态 -->
-  <div v-if="isLoading" class="w-full max-w-7xl mx-auto py-2 px-4">
+  <div v-if="isLoading" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div
       class="relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden h-[40rem] max-h-full w-full aspect-video"
     >
@@ -35,7 +35,7 @@
   </div>
 
   <!-- 加载失败状态 -->
-  <div v-if="failed" class="w-full max-w-7xl mx-auto py-2 px-4">
+  <div v-if="failed" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div
       class="relative bg-gradient-to-br from-destructive/10 via-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden border border-destructive/20 h-[40rem] max-h-full w-full aspect-video"
     >
@@ -88,7 +88,7 @@
     </div>
   </div>
 
-  <div v-if="selectedVod" class="w-full max-w-7xl mx-auto py-2 px-4">
+  <div v-if="selectedVod" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div class="relative bg-black rounded-lg overflow-hidden">
       <VideoPlayer
         :player_url="playerUrl"
@@ -104,14 +104,14 @@
       <div class="p-4 flex flex-col gap-4 card bg-card">
         <div class="flex gap-3">
           <h3 class="font-bold">{{ selectedVod.vod_name }}</h3>
-          <button class="btn border-primary btn-outline btn-xs" @click="handleSearch">
+          <button class="btn rounded-xl border-primary btn-outline btn-xs" @click="handleSearch">
             切换资源
           </button>
         </div>
 
         <div class="flex justify-between">
           <button
-            class="btn btn-accent"
+            class="btn btn-secondary"
             @click="goToPreviousEpisode"
             :disabled="isDisabledPrevious"
           >
@@ -123,7 +123,7 @@
           </div>
           <div v-else>加载中...</div>
 
-          <button class="btn btn-accent" @click="goToNextEpisode" :disabled="isDisabledNext">
+          <button class="btn btn-secondary" @click="goToNextEpisode" :disabled="isDisabledNext">
             下一集
           </button>
         </div>
@@ -136,7 +136,7 @@
       </div>
     </div>
 
-    <div class="text-gray-500 pb-2">
+    <div class="text-gray-500 text-sm pb-2">
       <p>免责声明：本站仅为视频搜索工具，不存储、上传或分发任何视频内容。</p>
       <p>所有视频均来自第三方API接口。如有侵权，请联系相关内容提供方。</p>
       <p>请勿相信视频中的广告等内容。</p>
@@ -146,10 +146,7 @@
   <dialog class="dialog" ref="switchRef">
     <div class="dialog-body bg-background w-[64rem]">
       <!-- 关闭按钮 -->
-      <button
-        @click="switchRef?.close()"
-        class="absolute top-4 right-4 cursor-pointer text-muted-foreground hover:text-foreground transition-colors z-10"
-      >
+      <button @click="switchRef?.close()" class="btn-close">
         <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path
             stroke-linecap="round"
