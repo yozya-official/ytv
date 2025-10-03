@@ -1,0 +1,64 @@
+@layer base {
+  h1 {
+    font-size: var(--text-4xl);
+    font-weight: 700;
+  }
+  h2 {
+    font-size: var(--text-2xl);
+    font-weight: 700;
+  }
+  h3 {
+    font-size: var(--text-lg);
+  }
+}
+
+/* 平滑滚动 */
+html {
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: no-preference) {
+  * {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+}
+
+@layer base {
+  html {
+    @apply bg-background text-foreground min-h-screen;
+  }
+}
+
+@layer base {
+  /* 针对 Webkit (Chrome/Edge/Safari) */
+  ::-webkit-scrollbar {
+    width: 8px; /* 垂直滚动条宽度 */
+    height: 8px; /* 水平滚动条高度 */
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent; /* 滚动条轨道 */
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-muted;
+    border-radius: 9999px; /* 圆角 */
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-muted;
+  }
+
+  /* 针对 Firefox */
+
+  * {
+    scrollbar-width: thin; /* 细滚动条 */
+
+    scrollbar-color: var(--color-muted) transparent;
+  }
+}

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" width="40" height="40">
+  <defs>
+    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#4f46e5"/>
+      <stop offset="100%" stop-color="#22d3ee"/>
+    </linearGradient>
+    <filter id="shadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="0" dy="1" stdDeviation="1" flood-color="#000" flood-opacity="0.2"/>
+    </filter>
+  </defs>
+
+  <!-- 方块 -->
+  <path d="M2 6a2 2 0 012-2h6a2 2 0 012 2v6a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" 
+        fill="url(#grad1)" filter="url(#shadow)"/>
+
+  <!-- 播放箭头 -->
+  <path d="M14.553 7.106A1 1 0 0014 8v4a1 1 0 00.553.894l2 1A1 1 0 0018 13V7a1 1 0 00-1.447-.894l-2 1z" 
+        fill="url(#grad1)" filter="url(#shadow)"/>
+</svg>

@@ -1,0 +1,48 @@
+{
+  "files.exclude": {
+    "**/.git": false,
+    "**/.svn": false,
+    "**/.hg": false,
+    "**/.DS_Store": false,
+    "**/Thumbs.db": false,
+    "frontend/node_modules": false,
+    "frontend/src/auto-imports.d.ts": false,
+    "frontend/src/components.d.ts": false,
+    "frontend/.eslintrc-auto-import.json": false,
+    "__debug_bin.exe": false,
+    "frontend/pnpm-lock.yaml": false,
+    "frontend/.editorconfig": false,
+    "frontend/.gitattributes": false,
+    "frontend/.gitignore": false,
+    "frontend/.prettierrc.json": false,
+    "frontend/env.d.ts": false,
+    "frontend/index.html": false,
+    "frontend/tsconfig.app.json": false,
+    "frontend/tsconfig.json": false,
+    "frontend/tsconfig.node.json": false,
+    ".vscode": false
+  },
+  "hide-files.files": [
+    "frontend/node_modules",
+    "frontend/src/auto-imports.d.ts",
+    "frontend/src/components.d.ts",
+    "frontend/.eslintrc-auto-import.json",
+    "__debug_bin.exe",
+    "frontend/pnpm-lock.yaml",
+    "frontend/.editorconfig",
+    "frontend/.gitattributes",
+    "frontend/.gitignore",
+    "frontend/.prettierrc.json",
+    "frontend/env.d.ts",
+    "frontend/index.html",
+    "frontend/tsconfig.app.json",
+    "frontend/tsconfig.json",
+    "frontend/tsconfig.node.json",
+    ".vscode"
+  ],
+  "cSpell.words": [
+    "douban",
+    "vods"
+  ],
+  // "tailwindCSS.experimental.configFile": "src/assets/main.css",
+}

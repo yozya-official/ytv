@@ -1,0 +1,10 @@
+services:
+  ytv:
+    image: ghcr.io/yozya-official/ytv:latest
+    container_name: ytv
+    platform: linux/amd64
+    ports:
+      - "9000:9000"
+    volumes:
+      # 挂载Api配置
+      - ./data:/app/data
