@@ -83,8 +83,8 @@ const handleSearch = async (keyword: string) => {
     if (searchResults.value.length == 0) {
       failed.value = true
       setTimeout(() => {
-        toast.warning('没有找到相关资源...')
-      }, 2500)
+        toast.warning('没有找到相关资源...', { duration: 2000 })
+      }, 500)
     } else {
       failed.value = false
     }
@@ -102,7 +102,7 @@ const reload = () => {
 
 // 处理热门视频点击
 const handleSearchHot = async (title: string) => {
-  toast.info('搜索中...', { duration: 2000 })
+  toast.info('搜索中...', { duration: 1500 })
   await handleSearch(title)
 }
 </script>
