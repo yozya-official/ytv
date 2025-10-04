@@ -40,7 +40,7 @@
             v-for="vod in pagedVideos"
             :key="vod.vod_id"
           >
-            <div @click="selectVod(vod)"><SearchCard :vod="vod" /></div>
+            <SearchCard @click="selectVod(vod)" :vod="vod" />
           </div>
         </div>
         <DataPagination
@@ -160,9 +160,5 @@ const pagedVideos = computed(() => {
   const end = start + pageSize.value
 
   return props.vods.slice(start, end)
-})
-
-onMounted(() => {
-  selectedVod.value = undefined
 })
 </script>

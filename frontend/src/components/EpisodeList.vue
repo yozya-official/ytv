@@ -51,7 +51,9 @@
         :class="{ 'btn-primary': episodeIndex == episode.episode_index }"
         @click="playEpisode(episode)"
       >
-        {{ episode.episode_title }}
+        <div class="tooltip" :data-tip="episode.episode_title">
+          <span class="line-clamp-1 w-full">{{ episode.episode_title }}</span>
+        </div>
       </button>
     </div>
 

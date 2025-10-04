@@ -8,16 +8,10 @@
         <a
           href="/"
           aria-label="首页"
-          class="group flex items-center space-x-3 transition-all duration-200 hover:opacity-90"
+          class="group relative flex items-center space-x-3 transition-all duration-200 hover:opacity-90"
         >
-          <div class="relative">
-            <!-- 装饰光晕 -->
-            <div
-              class="absolute inset-0 rounded-xl bg-gradient-to-br from-primary to-chart-2 opacity-0 group-hover:opacity-20 transition-opacity duration-300 blur-md -z-10"
-            ></div>
-          </div>
           <!-- 站点标题 -->
-          <div class="hidden sm:block">
+          <div class=" ">
             <h1
               class="text-2xl sm:text-3xl font-extrabold bg-clip-text text-transparent bg-gradient-to-r from-purple-500 via-pink-500 to-yellow-400 transition-all duration-300 hover:scale-105"
               style="font-family: 'Poppins', 'Segoe UI', sans-serif"
@@ -31,13 +25,10 @@
       <!-- 右侧功能区 -->
       <div class="flex items-center">
         <!-- 主题切换器+设置 -->
-        <div class="relative flex gap-4">
-          <ThemeToggle class="btn-scale"></ThemeToggle>
+        <div class="relative flex">
+          <ThemeToggle class="btn-hover btn btn-icon btn-ghost"></ThemeToggle>
 
-          <button
-            class="cursor-pointer btn btn-ghost btn-icon btn-scale"
-            @click="showHistory = true"
-          >
+          <button class="btn btn-ghost btn-icon btn-hover" @click="showHistory = true">
             <svg class="size-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path
                 stroke-linecap="round"
@@ -108,59 +99,3 @@ onBeforeUnmount(() => {
   document.body.style.overflow = ''
 })
 </script>
-
-<style scoped lang="css">
-/* Logo 悬停效果 */
-.group:hover .w-10 {
-  transform: scale(1.05) rotate(2deg);
-}
-
-/* 导航链接活跃状态动画 */
-nav a {
-  position: relative;
-  overflow: hidden;
-}
-
-nav a::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    var(--primary-rgb, 84 114 183) / 0.1,
-    transparent
-  );
-  transition: left 0.5s;
-}
-
-nav a:hover::before {
-  left: 100%;
-}
-
-/* 汉堡菜单动画优化 */
-#mobile-menu-toggle span {
-  transform-origin: center;
-}
-
-/* 移动端菜单项悬停效果 */
-#mobile-menu a {
-  backdrop-filter: blur(8px);
-}
-
-/* 头部毛玻璃效果增强 */
-header {
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-}
-
-/* 响应式字体大小 */
-@media (max-width: 640px) {
-  h1 {
-    font-size: 1rem;
-  }
-}
-</style>

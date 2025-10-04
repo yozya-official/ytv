@@ -126,7 +126,7 @@
       <div
         v-for="(movie, index) in hotMovies"
         :key="index"
-        @click="sendTitle(movie.title)"
+        @click="searchMovie(movie.title)"
         class="group relative card-hover card transition-all duration-300 cursor-pointer overflow-hidden"
       >
         <!-- 排名角标 -->
@@ -249,10 +249,6 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, watch } from 'vue'
-import { useStorage } from '@vueuse/core'
-import { videoApi } from '@/api'
-
 const loading = ref(false)
 const addTagDialog = ref<HTMLDialogElement>()
 const newTag = ref('')
@@ -307,10 +303,10 @@ const removeTag = (tag: string) => {
   }
 }
 
-const emit = defineEmits(['send-title'])
+const emit = defineEmits(['search-movie'])
 
-const sendTitle = (title: string) => {
-  emit('send-title', title)
+const searchMovie = (title: string) => {
+  emit('search-movie', title)
 }
 
 // 监听hot参数 页码,类别,tag
@@ -328,8 +324,6 @@ watch(
         selectedTag.value,
       )
       hotMovies.value = res.data.data.list
-
-      console.log(hotMovies.value)
     } catch (err) {
       console.error('获取热门影片失败:', err)
       hotMovies.value = []

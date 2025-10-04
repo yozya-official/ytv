@@ -1,5 +1,5 @@
 <template>
-  <PageHeader title="YTV" subtitle="自由观影,畅享精彩">
+  <PageHeader title="YTV" subtitle="自由观影,畅享精彩" class="cursor-pointer" @click="reload()">
     <template #icon>
       <svg class="size-8" fill="white" viewBox="0 0 20 20">
         <path
@@ -23,7 +23,7 @@
     </div>
 
     <!-- 热门视频 -->
-    <HotVideos v-if="!searchResults.length" @send-title="handleTitle" />
+    <HotVideos v-if="!searchResults.length" @search-movie="handleSearchHot" />
     <div v-else-if="failed" class="flex flex-col items-center justify-center py-20">
       <div class="card max-w-md w-full text-center">
         <div class="card-content p-6">
@@ -82,6 +82,9 @@ const handleSearch = async (keyword: string) => {
     searchResults.value = resp.data.data.list
     if (searchResults.value.length == 0) {
       failed.value = true
+      setTimeout(() => {
+        toast.warning('没有找到相关资源...')
+      }, 2500)
     } else {
       failed.value = false
     }
@@ -98,7 +101,8 @@ const reload = () => {
 }
 
 // 处理热门视频点击
-const handleTitle = async (title: string) => {
+const handleSearchHot = async (title: string) => {
+  toast.info('搜索中...', { duration: 2000 })
   await handleSearch(title)
 }
 </script>

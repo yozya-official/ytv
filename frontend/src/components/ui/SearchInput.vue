@@ -154,7 +154,6 @@ const handleSearch = () => {
 }
 
 const handleBlur = () => {
-  emit('search', searchText.value.trim())
   showHistory.value = false
 }
 
