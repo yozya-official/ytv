@@ -18,8 +18,8 @@ importers:
         specifier: ^1.0.24
         version: 1.0.24(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))(vue@3.5.22(typescript@5.8.3))
       '@yuelioi/toast':
-        specifier: ^1.0.16
-        version: 1.0.16(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))
+        specifier: ^1.0.18
+        version: 1.0.18(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))
       '@yuelioi/yami':
         specifier: ^1.0.1
         version: 1.0.1
@@ -910,8 +910,8 @@ packages:
   '@yuelioi/components@1.0.24':
     resolution: {integrity: sha512-oBFwVHdt+zAswfq/ams0+rOyFNWIrHAubJUJQODcFSBuC1HU//CqBWVfW4N3bQIRZR5BxabGgObQ4GQAPwq2cw==, tarball: https://npm.pkg.github.com/download/@yuelioi/components/1.0.24/c5cf7da3ee03ae3f5cbd624d125752b75b8d410b}
 
-  '@yuelioi/toast@1.0.16':
-    resolution: {integrity: sha512-fk9lJz8CQNWHj2SjOvIFxrcNWX2b2qu+xB2Jk6GI7aZ5CSW9aiOsN+oqK374QBwz3M4wkbaDU0pkofgQUAnu0Q==, tarball: https://npm.pkg.github.com/download/@yuelioi/toast/1.0.16/0201547194c17100cc4df2194ddaa1077e9785fd}
+  '@yuelioi/toast@1.0.18':
+    resolution: {integrity: sha512-r0qSqSZ36DAlfiMNsv8xPsGbbFoGrDhq9/SyqVxFQsVjvdDrvHs4tqJWsm7MfTXyoLk3TQz0geE5WB1bmkFZhg==, tarball: https://npm.pkg.github.com/download/@yuelioi/toast/1.0.18/910bdf3790565114c9fb96b0e970cc0b89acb9ef}
 
   '@yuelioi/yami@1.0.1':
     resolution: {integrity: sha512-GkzYlIWIGcKDkQK7pq7YW8mNmV4sGutWa2q0AYkn2MEX9ywMO+MxY+EZY8IKesSLSFtndcY6aoknpUde2Nr00g==, tarball: https://npm.pkg.github.com/download/@yuelioi/yami/1.0.1/4908d1c3f122c365898e87fcfe5f8f14232e54fb}
@@ -3423,7 +3423,7 @@ snapshots:
       - vite
       - vue
 
-  '@yuelioi/toast@1.0.16(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))':
+  '@yuelioi/toast@1.0.18(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))':
     dependencies:
       '@tailwindcss/vite': 4.1.13(rolldown-vite@7.1.13(@types/node@22.18.6)(jiti@2.6.0))
     transitivePeerDependencies:
