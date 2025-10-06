@@ -2,21 +2,25 @@ package main
 
 import (
 	"io"
-	"net/http"
 	"os"
 	"strings"
 	"tv/conf"
-	"tv/middleware"
 	"tv/service"
 
 	"github.com/gin-gonic/gin"
 	"github.com/rs/zerolog/log"
+
+	"github.com/Yuelioi/gkit/logx/zero"
+	"github.com/Yuelioi/gkit/web/gin/middleware/cachecontrol"
+	"github.com/Yuelioi/gkit/web/gin/middleware/log/gzero"
+	"github.com/Yuelioi/gkit/web/gin/middleware/ratelimit"
+	"github.com/Yuelioi/gkit/web/gin/server"
 )
 
 func main() {
 
 	// 配置日志
-	logger := initLog()
+	logger := zero.Default()
 	log.Logger = logger
 
 	// 初始化配置
@@ -25,54 +29,33 @@ func main() {
 		panic(err)
 	}
 
-	log.Debug().Msg("加载配置")
-
-	// 初始化Gin
+	// 禁用gin log
 	gin.DefaultWriter = io.Discard
 	gin.DefaultErrorWriter = io.Discard
-	r := gin.New()
-	r.Use(middleware.GinLogger(logger), middleware.GinRecovery(logger))
 
-	mode := strings.ToLower(os.Getenv("APP_MODE"))
-
-	// 基于部署方式动态修改参数
-	addr := ":" + conf.Cfg.App.Port
-	if mode == "release" {
-		gin.SetMode(gin.ReleaseMode)
-	} else {
-		// 全局使用
-		addr = "0.0.0.0" + addr
-		// CORS 中间件
-		r.Use(middleware.Cors())
+	mw := []gin.HandlerFunc{
+		gzero.Default(logger),
+		gzero.GinRecovery(logger),
+		cachecontrol.Default(),
+		ratelimit.Default(),
 	}
 
-	// API 路由组
-	api := r.Group("/api/" + conf.Cfg.App.APIVersion)
-	api.Use((middleware.CacheMiddleware(conf.Cfg.Cache.Header)))
-	{
-		api.GET("/search", service.SearchVideoAPI)
-		api.GET("/hot", service.HotMovies)
-		api.GET("/vod", service.SearchVideoById)
-	}
+	server.Start(server.ServerConfig{
+		Addr:        ":9000",
+		Logger:      logger,
+		Mode:        strings.ToLower(os.Getenv("APP_MODE")),
+		EnableCORS:  true,
+		APIPrefix:   "/api/v1",
+		Middlewares: mw,
+		SPAPath:     "./frontend/dist",
+	}, func(api *gin.RouterGroup) {
 
-	// 静态资源路由
-	r.Static("/assets", "./frontend/dist/assets")
-	r.StaticFile("/favicon.svg", "./frontend/dist/favicon.svg")
-	r.StaticFile("/logo.png", "./frontend/dist/logo.png")
-
-	// 处理 Vue SPA 的所有其他路由
-	r.NoRoute(func(c *gin.Context) {
-		path := c.Request.URL.Path
-		if len(path) >= 4 && path[:4] == "/api" {
-			c.JSON(http.StatusNotFound, gin.H{"error": "API 路由未找到"})
-			return
+		api.Use((cachecontrol.Default()), ratelimit.Default())
+		{
+			api.GET("/search", service.SearchVideoAPI)
+			api.GET("/hot", service.HotMovies)
+			api.GET("/vod", service.SearchVideoById)
 		}
-		c.File("./frontend/dist/index.html")
 	})
 
-	// 启动服务器
-	logger.Info().Str("地址", addr).Msg("服务已启动")
-	if err := r.Run(addr); err != nil {
-		logger.Fatal().Err(err).Msg("服务加载失败")
-	}
 }

@@ -1,12 +1,12 @@
 app:
-  api_version: v1    # API版本号
+  api_version: v1 # API版本号
   port: 9000
-  password: "your-secret-password"  # 管理或接口密码
+  password: "your-secret-password" # 管理或接口密码
 
 cache:
-  search: 1h         # 搜索接口缓存时间
-  id: 2h             # ID查询接口缓存时间
-  hot: 30m           # 热门接口缓存时间
+  search: 1h # 搜索接口缓存时间
+  id: 2h # ID查询接口缓存时间
+  hot: 30m # 热门接口缓存时间
 
   header: 5m # 浏览器 header 缓存时间
 
@@ -60,8 +60,3 @@ sources:
   wwzy:
     api: "https://wwzy.tv/api.php/provide/vod"
     name: "旺旺短剧"
-
-  testSource:
-    api: "https://www.example.com/api.php/provide/vod"
-    name: "空内容测试源"
-    adult: true
