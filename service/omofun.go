@@ -145,11 +145,11 @@ func (api *VideoAPI) scrapeOmoSearch(keyword string) ([]models.VodItem, error) {
 	searchCollector.Limit(&colly.LimitRule{
 		DomainGlob:  "*omofun.link*",
 		Parallelism: 2,
-		Delay:       200 * time.Millisecond,
+		Delay:       300 * time.Millisecond,
 	})
 
 	// 超时设置
-	searchCollector.SetRequestTimeout(3 * time.Second)
+	searchCollector.SetRequestTimeout(5 * time.Second)
 
 	// 访问搜索页
 	searchURL := "https://www.omofun.link/vod/search/page/1/wd/" + keyword + ".html"

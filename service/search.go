@@ -113,6 +113,9 @@ func (api *VideoAPI) fetchParallel(sources map[string]models.VideoSource, fetche
 	resultChan := make(chan sourceResult, len(sources))
 
 	for key, source := range sources {
+		if strings.EqualFold(source.Name, "omo") {
+			continue
+		}
 		wg.Add(1)
 		go func(k string, s models.VideoSource) {
 			defer wg.Done()
