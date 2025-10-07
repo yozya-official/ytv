@@ -411,6 +411,7 @@ func SearchVideoById(c *gin.Context) {
 	cacheKey := cache.IDParams{
 		SourceKey: sourceKey,
 		VodID:     vodID,
+		Index:     episodeIndexStr,
 	}
 	cacher := cache.GetCacher()
 	res, ok := cacher.GetByID(cacheKey)

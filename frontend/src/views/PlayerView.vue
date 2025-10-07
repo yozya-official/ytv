@@ -2,7 +2,7 @@
   <!-- 加载中状态 -->
   <div v-if="isLoading" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div
-      class="relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden h-[40rem] max-h-full w-full aspect-video"
+      class="relative bg-gradient-to-br from-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden max-h-full w-full aspect-video"
     >
       <div class="absolute inset-0 flex flex-col gap-6 items-center justify-center">
         <!-- 加载动画 -->
@@ -35,7 +35,7 @@
   </div>
 
   <!-- 加载失败状态 -->
-  <div v-if="failed" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
+  <div v-else-if="failed" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div
       class="relative bg-gradient-to-br from-destructive/10 via-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden border border-destructive/20 h-[40rem] max-h-full w-full aspect-video"
     >
@@ -126,7 +126,7 @@
     </div>
   </div>
 
-  <div v-if="selectedVod" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
+  <div v-else-if="selectedVod" class="w-full max-w-7xl mx-auto py-2 px-2 sm:px-4">
     <div class="relative bg-black rounded-lg overflow-hidden">
       <VideoPlayer
         :player_url="playerUrl"

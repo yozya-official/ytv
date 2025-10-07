@@ -175,7 +175,7 @@ func (c *SearchCache) SetKeyword(params SearchParams, data models.APIResponse) {
 type IDParams struct {
 	SourceKey string
 	VodID     int
-	Index     int
+	Index     string
 }
 
 func (c *SearchCache) GetByID(params IDParams) (models.APIResponse, bool) {
