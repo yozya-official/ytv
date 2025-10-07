@@ -194,13 +194,21 @@ func (api *VideoAPI) SearchByKeyword(keyword, page string, includeAdult bool) (a
 
 	wg.Wait()
 
-	allFiltered := all[:0]
+	omoItems := make([]models.VodItem, 0, len(all))
+	otherItems := make([]models.VodItem, 0, len(all))
+
 	for _, item := range all {
-		if len(item.Episodes) > 0 {
-			allFiltered = append(allFiltered, item)
+		if len(item.Episodes) == 0 {
+			continue
+		}
+		if item.SourceKey == "omo" {
+			omoItems = append(omoItems, item)
+		} else {
+			otherItems = append(otherItems, item)
 		}
 	}
-	all = allFiltered
+
+	all = append(omoItems, otherItems...)
 
 	duration := time.Since(start).Milliseconds()
 	log.Info().
