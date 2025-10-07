@@ -1,5 +1,7 @@
 package models
 
+import "encoding/json"
+
 type Episode struct {
 	EpisodeIndex int    `json:"episode_index"`
 	EpisodeTitle string `json:"episode_title"`
@@ -12,21 +14,21 @@ type VodItem struct {
 	Episodes   []Episode `json:"episodes"`
 
 	// 基本信息
-	VodID      int    `json:"vod_id"`
-	TypeID     int    `json:"type_id"`
-	TypeID1    int    `json:"type_id_1"`
-	TypeName   string `json:"type_name"`
-	VodName    string `json:"vod_name"`
-	VodSub     string `json:"vod_sub"`
-	VodEn      string `json:"vod_en"`
-	VodYear    string `json:"vod_year"`
-	VodArea    string `json:"vod_area"`
-	VodLang    string `json:"vod_lang"`
-	VodRemarks string `json:"vod_remarks"`
-	VodStatus  int    `json:"vod_status"`
-	VodIsEnd   int    `json:"vod_isend"`
-	VodTotal   int    `json:"vod_total"`
-	VodSerial  string `json:"vod_serial"`
+	VodID      int         `json:"vod_id"`
+	TypeID     int         `json:"type_id"`
+	TypeID1    int         `json:"type_id_1"`
+	TypeName   string      `json:"type_name"`
+	VodName    string      `json:"vod_name"`
+	VodSub     string      `json:"vod_sub"`
+	VodEn      string      `json:"vod_en"`
+	VodYear    json.Number `json:"vod_year"`
+	VodArea    string      `json:"vod_area"`
+	VodLang    string      `json:"vod_lang"`
+	VodRemarks string      `json:"vod_remarks"`
+	VodStatus  int         `json:"vod_status"`
+	VodIsEnd   int         `json:"vod_isend"`
+	VodTotal   int         `json:"vod_total"`
+	VodSerial  string      `json:"vod_serial"`
 
 	// 描述和分类
 	VodClass   string `json:"vod_class"`

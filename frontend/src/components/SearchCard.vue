@@ -23,7 +23,7 @@
         </div>
       </div>
       <!-- 年份标签 -->
-      <div class="absolute top-2 right-2" v-if="vod.vod_year != '0'">
+      <div class="absolute top-2 right-2" v-if="vod.vod_year">
         <span
           class="px-2 py-0.5 rounded text-xs font-semibold bg-muted text-muted-foreground backdrop-blur-sm"
         >

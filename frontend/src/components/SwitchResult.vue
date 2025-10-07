@@ -127,7 +127,7 @@
               </div>
 
               <!-- 年份标签 -->
-              <div class="absolute top-2 right-2">
+              <div class="absolute top-2 right-2" v-if="vod.vod_year">
                 <span
                   class="px-2.5 py-1 rounded-lg text-xs font-bold bg-primary/90 text-primary-foreground backdrop-blur-sm shadow-lg"
                 >
@@ -245,7 +245,7 @@ const filteredVods = computed(() => {
 
   const filtered = excludeCurrentResult.filter((vod) => {
     return (
-      vod.vod_year === search.value ||
+      vod.vod_year === Number(search.value) ||
       vod.source_name.includes(search.value) ||
       vod.vod_name.includes(search.value)
     )

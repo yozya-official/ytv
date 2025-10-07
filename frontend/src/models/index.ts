@@ -13,7 +13,7 @@ export interface VodItem {
   vod_name: string // 视频名称
   vod_sub: string // 副标题
   vod_en: string // 视频英文名/拼音
-  vod_year: string // 年份
+  vod_year: number // 年份
   vod_area: string // 地区
   vod_lang: string // 语言
   vod_remarks: string // 备注/集数状态（如：正片, HD中字, 更新第11集）
