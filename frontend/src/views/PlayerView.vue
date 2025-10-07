@@ -43,7 +43,24 @@
         <!-- 错误图标 -->
         <div class="relative">
           <div class="w-24 h-24 rounded-full bg-destructive/10 flex items-center justify-center">
-            <AlertCircle class="w-12 h-12 text-destructive" />
+            <svg
+              class="w-12 h-12 text-destructive"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 8v4m0 4h.01" />
+              </g>
+            </svg>
           </div>
           <!-- 脉冲动画 -->
           <div class="absolute inset-0 rounded-full bg-destructive/20 animate-ping"></div>

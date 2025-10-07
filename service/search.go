@@ -25,7 +25,7 @@ type VideoAPI struct {
 
 func NewVideoAPI() *VideoAPI {
 	c := resty.New().
-		SetTimeout(3*time.Second).
+		SetTimeout(5*time.Second).
 		SetHeader("User-Agent", "Mozilla/5.0 (compatible; VideoAPI/1.0)")
 	return &VideoAPI{client: c}
 }
