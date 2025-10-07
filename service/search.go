@@ -14,6 +14,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/go-resty/resty/v2"
 	"github.com/rs/zerolog/log"
+	"github.com/spf13/cast"
 )
 
 var videoAPI = NewVideoAPI()
@@ -142,22 +143,64 @@ func (api *VideoAPI) SearchByKeyword(keyword, page string, includeAdult bool) (a
 		Int("sources", len(sources)).
 		Msg("开始关键词搜索")
 
-	results := api.fetchParallel(sources, func(key string, s models.VideoSource) sourceResult {
-		params := map[string]string{"ac": "videolist", "wd": keyword, "pg": page}
-		return api.fetchFromSource(key, s, params)
-	})
+	var wg sync.WaitGroup
+	var mu sync.Mutex
 
 	all := make([]models.VodItem, 0)
 	successCount := 0
 	failedCount := 0
-	for _, r := range results {
-		if r.Error == nil {
-			successCount++
-			all = append(all, r.Items...)
-		} else {
-			failedCount++
+
+	// 1. 获取原有数据源
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		results := api.fetchParallel(sources, func(key string, s models.VideoSource) sourceResult {
+			params := map[string]string{"ac": "videolist", "wd": keyword, "pg": page}
+			return api.fetchFromSource(key, s, params)
+		})
+
+		mu.Lock()
+		defer mu.Unlock()
+		for _, r := range results {
+			if r.Error == nil {
+				successCount++
+				all = append(all, r.Items...)
+			} else {
+				failedCount++
+			}
+		}
+	}()
+
+	// 2. 获取 Omo 数据
+	_, ok := conf.Cfg.GetVideoSource("omo")
+	if (page == "1" || page == "") && ok {
+		wg.Add(1)
+		go func() {
+			defer wg.Done()
+
+			result := api.SearchOmo(keyword)
+
+			mu.Lock()
+			defer mu.Unlock()
+
+			if result.Error == nil {
+				successCount++
+				all = append(all, result.Items...)
+			} else {
+				failedCount++
+			}
+		}()
+	}
+
+	wg.Wait()
+
+	allFiltered := all[:0]
+	for _, item := range all {
+		if len(item.Episodes) > 0 {
+			allFiltered = append(allFiltered, item)
 		}
 	}
+	all = allFiltered
 
 	duration := time.Since(start).Milliseconds()
 	log.Info().
@@ -175,14 +218,22 @@ func (api *VideoAPI) SearchByKeyword(keyword, page string, includeAdult bool) (a
 		"page":          page,
 		"success_count": successCount,
 		"failed_count":  failedCount,
-		"total_sources": len(sources),
+		"total_sources": len(sources) + 1, // +1 for Omo
 	}
 	return data, extra, nil
 }
 
 // 根据ID搜索
-func (api *VideoAPI) SearchByID(sourceKey string, vodID int) (any, any, error) {
+func (api *VideoAPI) SearchByID(sourceKey string, vodID int, index int) (any, any, error) {
 	start := time.Now()
+
+	log.Info().
+		Str("source_key", sourceKey).
+		Int("vod_id", vodID).
+		Msg("开始 ID 搜索")
+
+	var result sourceResult
+
 	source, ok := conf.Cfg.GetVideoSource(sourceKey)
 	if !ok {
 		log.Warn().
@@ -192,8 +243,15 @@ func (api *VideoAPI) SearchByID(sourceKey string, vodID int) (any, any, error) {
 		return nil, gin.H{"source_key": sourceKey, "vod_id": vodID}, fmt.Errorf("视频源不存在")
 	}
 
-	params := map[string]string{"ac": "videolist", "ids": strconv.Itoa(vodID)}
-	result := api.fetchFromSource(sourceKey, source, params)
+	// 判断是否为 Omo 源
+	if strings.EqualFold(source.Name, "omo") {
+		result = api.GetOmoDetail(vodID, index)
+	} else {
+		// 普通视频源
+		params := map[string]string{"ac": "videolist", "ids": strconv.Itoa(vodID)}
+		result = api.fetchFromSource(sourceKey, source, params)
+	}
+
 	duration := time.Since(start).Milliseconds()
 
 	if result.Error != nil {
@@ -217,6 +275,7 @@ func (api *VideoAPI) SearchByID(sourceKey string, vodID int) (any, any, error) {
 
 	log.Info().
 		Str("source_key", sourceKey).
+		Str("source_name", source.Name).
 		Int("vod_id", vodID).
 		Int("items", len(result.Items)).
 		Int64("duration_ms", duration).
@@ -229,15 +288,11 @@ func (api *VideoAPI) SearchByID(sourceKey string, vodID int) (any, any, error) {
 
 // ============ Handler ============
 
-// ============ Handler ============
-
 func SearchVideoAPI(c *gin.Context) {
-	// --- 【补充点 1：函数入口日志】 ---
 	log.Info().Msg("处理视频关键词搜索请求")
 
 	keyword := c.Query("wd")
 	if keyword == "" {
-		// --- 【补充点 2：参数校验失败日志】 ---
 		log.Warn().Msg("请求参数 'wd' (关键词) 不能为空")
 		Error(c, 400, "搜索关键词不能为空", nil)
 		return
@@ -319,6 +374,15 @@ func SearchVideoById(c *gin.Context) {
 		Error(c, 400, "vodId不能为空", nil)
 		return
 	}
+	episodeIndexStr := c.Query("episodeIndex")
+	if episodeIndexStr == "" {
+		log.Warn().
+			Str("source_key", sourceKey).
+			Msg("请求参数 'episodeIndex' 不能为空")
+		Error(c, 400, "episodeIndex不能为空", nil)
+		return
+	}
+
 	vodID, err := strconv.Atoi(vodIDStr)
 	if err != nil {
 		log.Warn().
@@ -355,7 +419,7 @@ func SearchVideoById(c *gin.Context) {
 		Int("vod_id", vodID).
 		Msg("ID 搜索请求未命中缓存，将调用后端服务")
 
-	data, extra, err := videoAPI.SearchByID(sourceKey, vodID)
+	data, extra, err := videoAPI.SearchByID(sourceKey, vodID, cast.ToInt(episodeIndexStr))
 	if err != nil {
 		log.Error().
 			Str("source_key", sourceKey).

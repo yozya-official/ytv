@@ -78,6 +78,7 @@
                 :src="vod.vod_pic_thumb || vod.vod_pic"
                 :alt="vod.vod_name"
                 loading="lazy"
+                @error="handleImageError"
               />
 
               <!-- 悬浮操作按钮 -->
@@ -199,6 +200,7 @@
 <script setup lang="ts">
 import type { VodItem } from '@/models'
 import router from '@/router'
+import { handleImageError } from '@/utils'
 
 const search = ref('')
 

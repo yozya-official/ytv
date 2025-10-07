@@ -19,6 +19,7 @@ declare module 'vue' {
     SearchContainer: typeof import('./components/SearchContainer.vue')['default']
     SearchInput: typeof import('./components/ui/SearchInput.vue')['default']
     SwitchResult: typeof import('./components/SwitchResult.vue')['default']
+    TheFooter: typeof import('./components/TheFooter.vue')['default']
     TheHeader: typeof import('./components/TheHeader.vue')['default']
     VideoPlayer: typeof import('./components/VideoPlayer.vue')['default']
   }

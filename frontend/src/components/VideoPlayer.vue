@@ -188,6 +188,7 @@ const initPlayer = async (url: string) => {
     hls.on(Hls.Events.ERROR, (event, data) => {
       if (data.fatal) {
         console.error('HLS 致命错误:', data)
+        toast.error('该视频无法播放, 请更换来源或者联系管理员')
         switch (data.type) {
           case Hls.ErrorTypes.NETWORK_ERROR:
           case Hls.ErrorTypes.MEDIA_ERROR:

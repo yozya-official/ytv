@@ -38,3 +38,11 @@ export function handleApiError(error: unknown, action = '操作') {
 
   toast.error(`${action}失败: ${message}`)
 }
+
+export const handleImageError = (e: Event) => {
+  const target = e.target as HTMLImageElement
+  if (!target.dataset.fallback) {
+    target.dataset.fallback = 'true'
+    target.src = '/default-cover.gif'
+  }
+}

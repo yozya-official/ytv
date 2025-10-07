@@ -20,7 +20,6 @@ type Config struct {
 		Search time.Duration `mapstructure:"search"`
 		ID     time.Duration `mapstructure:"id"`
 		Hot    time.Duration `mapstructure:"hot"`
-		Header time.Duration `mapstructure:"hot"`
 	} `mapstructure:"cache"`
 
 	Sources map[string]models.VideoSource `mapstructure:"sources"`

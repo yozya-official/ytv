@@ -36,7 +36,7 @@ func main() {
 	mw := []gin.HandlerFunc{
 		gzero.Default(logger),
 		gzero.GinRecovery(logger),
-		cachecontrol.Default(),
+		// cachecontrol.Default(),
 		ratelimit.Default(),
 	}
 

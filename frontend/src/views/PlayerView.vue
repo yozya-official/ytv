@@ -39,7 +39,7 @@
     <div
       class="relative bg-gradient-to-br from-destructive/10 via-black/80 to-black/60 backdrop-blur-sm rounded-xl overflow-hidden border border-destructive/20 h-[40rem] max-h-full w-full aspect-video"
     >
-      <div class="absolute inset-0 flex flex-col gap-6 items-center justify-center p-8">
+      <div class="absolute inset-0 flex flex-col gap-6 items-center justify-center p-8 z-10">
         <!-- 错误图标 -->
         <div class="relative">
           <div class="w-24 h-24 rounded-full bg-destructive/10 flex items-center justify-center">
@@ -61,18 +61,56 @@
         <!-- 操作按钮 -->
         <div class="flex items-center gap-3 mt-4">
           <button @click="handleRetry" class="btn btn-outline gap-2 group">
-            <RefreshCw class="w-4 h-4 group-hover:rotate-180 transition-transform duration-500" />
+            <svg
+              class="size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <path d="M3 12a9 9 0 0 1 9-9a9.75 9.75 0 0 1 6.74 2.74L21 8" />
+                <path d="M21 3v5h-5m5 4a9 9 0 0 1-9 9a9.75 9.75 0 0 1-6.74-2.74L3 16" />
+                <path d="M8 16H3v5" />
+              </g>
+            </svg>
             重新加载
           </button>
+
           <button @click="router.push({ name: 'home' })" class="btn btn-primary gap-2">
-            <Home class="w-4 h-4" />
+            <svg
+              class="size-4"
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+            >
+              <g
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+              >
+                <path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8" />
+                <path
+                  d="M3 10a2 2 0 0 1 .709-1.528l7-6a2 2 0 0 1 2.582 0l7 6A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"
+                />
+              </g>
+            </svg>
             返回主页
           </button>
         </div>
 
         <!-- 帮助提示 -->
         <div class="mt-8 p-4 bg-white/5 rounded-lg border border-white/10 max-w-md">
-          <p class="text-xs text-white/60 text-center">
+          <p class="text-sm text-white/60 text-center">
             💡 提示：尝试切换不同的视频源或检查网络连接
           </p>
         </div>
@@ -134,12 +172,6 @@
           :episode-index="episodeIndex"
         ></EpisodeList>
       </div>
-    </div>
-
-    <div class="text-gray-500 text-sm pb-2">
-      <p>免责声明：本站仅为视频搜索工具，不存储、上传或分发任何视频内容。</p>
-      <p>所有视频均来自第三方API接口。如有侵权，请联系相关内容提供方。</p>
-      <p>请勿相信视频中的广告等内容。</p>
     </div>
   </div>
 
@@ -205,15 +237,15 @@ const handleSearch = async () => {
 
 // 监听 id 以及 资源id, 用于判断是否更换视频
 watch(
-  [vodId, sourceKey],
-  async ([newId, newSourceKey]) => {
+  [vodId, sourceKey, episodeIndex],
+  async ([newId, newSourceKey, newEpisodeIndex]) => {
     if (!newId || !newSourceKey) {
       failed.value = true
     }
 
     try {
       isLoading.value = true
-      const result = await videoApi.searchById(newSourceKey, newId)
+      const result = await videoApi.searchById(newSourceKey, newId, newEpisodeIndex)
       if (result.data.data) {
         selectedVod.value = result.data.data
 

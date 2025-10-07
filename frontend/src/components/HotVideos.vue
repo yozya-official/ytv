@@ -163,6 +163,7 @@
             :src="movie.cover_base64 || movie.cover"
             :alt="movie.title"
             referrerpolicy="no-referrer"
+            @error="handleImageError"
             class="group-hover:scale-110 h-full transition-transform duration-300"
           />
 
@@ -249,6 +250,8 @@
 </template>
 
 <script setup lang="ts">
+import { handleImageError } from '@/utils'
+
 const loading = ref(false)
 const addTagDialog = ref<HTMLDialogElement>()
 const newTag = ref('')

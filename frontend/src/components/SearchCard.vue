@@ -6,6 +6,7 @@
         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         :src="vod.vod_pic_thumb || vod.vod_pic"
         :alt="vod.vod_name"
+        @error="handleImageError"
       />
 
       <!-- 悬浮操作按钮 -->
@@ -22,7 +23,7 @@
         </div>
       </div>
       <!-- 年份标签 -->
-      <div class="absolute top-2 right-2">
+      <div class="absolute top-2 right-2" v-if="vod.vod_year != '0'">
         <span
           class="px-2 py-0.5 rounded text-xs font-semibold bg-muted text-muted-foreground backdrop-blur-sm"
         >
@@ -45,21 +46,12 @@
         <span
           class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-primary border border-primary/20"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            class="h-3 w-3"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"
-            />
-          </svg>
           {{ vod.type_name }}
+        </span>
+        <span
+          class="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-xs font-medium bg-primary/10 text-destructive/75 border border-primary/20"
+        >
+          <span class="font-sm">共{{ vod.episodes.length }}集</span>
         </span>
       </div>
 
@@ -108,5 +100,7 @@
 </template>
 
 <script setup lang="ts">
+import { handleImageError } from '@/utils'
+
 defineProps<{ vod: VodItem }>()
 </script>
