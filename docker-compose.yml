@@ -1,6 +1,6 @@
 services:
   ytv:
-    image: ghcr.io/yozya-official/ytv:latest
+    image: ghcr.io/yueli-official/ytv:latest
     container_name: ytv
     platform: linux/amd64
     ports:

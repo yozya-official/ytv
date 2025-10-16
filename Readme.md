@@ -63,7 +63,7 @@ YTV 是一个现代化的影视播放网站，提供流畅的视频观看体验�
 **1. 克隆项目**
 
 ```bash
-git clone https://github.com/yozya-official/ytv.git
+git clone https://github.com/yueli-official/ytv.git
 cd ytv
 ```
 
@@ -234,7 +234,7 @@ docker-compose up -d
 
 如有问题或建议，欢迎通过以下方式联系：
 
-- 提交 [Issue](https://github.com/yozya-official/ytv/issues)
+- 提交 [Issue](https://github.com/yueli-official/ytv/issues)
 - 发送邮件：your.email@example.com
 
 ---
